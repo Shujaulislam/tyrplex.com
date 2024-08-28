@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 const tyres = [
@@ -50,7 +51,12 @@ const tyres = [
                 </button> */}
               </div>
               <div className="absolute bottom-0 right-0 w-30 h-30 rounded-tr-3xl overflow-hidden">
-                <img src={tyre.image} alt={tyre.name} className="w-full h-full object-cover" />
+              <Image
+                src={`/${tyre.image}`}
+                alt={tyre.name}
+                width={170}
+                height={170}
+              />
               </div>
             </div>
           ))}

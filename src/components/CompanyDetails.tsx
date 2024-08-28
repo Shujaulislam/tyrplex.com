@@ -1,5 +1,7 @@
 import { FaStar, FaCheckCircle, FaMapMarkerAlt, FaClock, FaPhone } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+
 
 export default function CompanyDetails() {
   const rating = 4.5;
@@ -20,7 +22,7 @@ export default function CompanyDetails() {
     { id: 7, name: 'Pardeep Kumar', content: 'Best shopee in indirapuram. Good customer service. After sale service amazing. Overall nice experience.', rating: 3 },
   ];
 
-  const [currentReview, setCurrentReview] = useState(0);
+  const [, setCurrentReview] = useState(0);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function CompanyDetails() {
       setCurrentReview((prev) => (prev + 1) % reviews.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [reviews.length]);
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 mx-auto dark:bg-gray-800">
@@ -78,16 +80,20 @@ export default function CompanyDetails() {
         <div className="md:w-1/3 w-full">
           <h2 className="text-xl font-semibold mb-4 dark:text-white">Photos</h2>
           <div className="flex gap-2 h-48">
-            <img
+            <Image
               src={photos[0]}
               alt="Company photo 1"
+              width={300}
+              height={200}
               className="w-3/4 h-full object-cover rounded-lg cursor-pointer transition transform hover:scale-105"
               onClick={() => setSelectedPhoto(photos[0])}
             />
             <div className="w-1/4 h-full relative">
-              <img
+              <Image
                 src={photos[1]}
                 alt="Company photo 2"
+                width={100}
+                height={200}
                 className="w-full h-full object-cover rounded-lg cursor-pointer transition transform hover:scale-105"
                 onClick={() => setSelectedPhoto(photos[1])}
               />
@@ -103,7 +109,7 @@ export default function CompanyDetails() {
           </div>
           {selectedPhoto && (
             <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={() => setSelectedPhoto(null)}>
-              <img src={selectedPhoto} alt="Selected photo" className="max-w-full max-h-full object-contain" />
+              <Image src={selectedPhoto} alt="Selected photo" layout="fill" objectFit="contain" />
             </div>
           )}
         </div>
